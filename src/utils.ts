@@ -46,17 +46,23 @@ const parseVisibility = (visibility: unknown): Visibility => {
   return visibility;
 };
 
-type Fields = { comment: unknown, date: unknown, weather: unknown, visibility: unknown };
+const toNewDiaryEntry = (object: unknown): NewDiaryEntry => {
+  if ( !object || typeof object !== 'object' ) {
+    throw new Error('Incorrect or missing data');
+  }
 
-const toNewDiaryEntry = ({ comment, date, weather, visibility } : Fields): NewDiaryEntry => {
-  const newEntry: NewDiaryEntry = {
-    weather: parseWeather(weather),
-    visibility: parseVisibility(visibility),
-    date: parseDate(date),
-    comment: parseComment(comment)
-  };
+  if ('comment' in object && 'date' in object && 'weather' in object && 'visibility' in object)  {
+    const newEntry: NewDiaryEntry = {
+      weather: parseWeather(object.weather),
+      visibility: parseVisibility(object.visibility),
+      date: parseDate(object.date),
+      comment: parseComment(object.comment)
+    };
+  
+    return newEntry;
+  }
 
-  return newEntry;
+  throw new Error('Incorrect data');
 };
 
 export default toNewDiaryEntry;

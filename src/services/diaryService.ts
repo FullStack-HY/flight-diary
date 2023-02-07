@@ -4,9 +4,9 @@ import {
   NonSensitiveDiaryEntry, DiaryEntry, NewDiaryEntry
  } from '../types';
 
-const diaries: Array<DiaryEntry> = diaryData;
+const diaries: DiaryEntry[] = diaryData;
 
-const getEntries = (): Array<DiaryEntry> => {
+const getEntries = (): DiaryEntry[] => {
   return diaries;
 };
 
